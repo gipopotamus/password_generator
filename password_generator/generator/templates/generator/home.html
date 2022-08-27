@@ -1,40 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
+{% load static %}
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+		<meta charset="utf-8">
+		<title>Это заголовок тайтл</title>
+		<link rel="stylesheet" href="{% static 'css/style.css'%}" type="text/css">
 </head>
 <body>
-{% block content %}
-    <div class="form text-center" style="margin-top: 50px;">
-        <form action="{% url 'password' %}">
-            <select name="length" style="margin-bottom: 15px;">
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12" selected="selected" >12</option>
-                <option value="13">13</option>
-                <option value="14">14</option>
-                <option value="15">15</option>
-                <option value="16">16</option>
-            </select> <span>длина пароля</span>
-            <br>
-            <input type="checkbox" name="uppercase">Верхний регистр
-            <br>
-            <input type="checkbox" name="numbers">Использовать числа
-            <br>
-            <br>
-            <input type="checkbox" name="special">Использовать специальные символы
-            <br>
+<div class="container">
+	<h1 class="title">Password Generator</h1>
+	<div class="result">
+		<div class="result__title field-title">Generated Password:</div>
+		<h2>{{ pwd }} </h2>
+		<br>
+	</div>
 
-            <input type="submit" value="Сгенерировать пароль">
-        </form>
-    </div>
-<h1>password: {{pwd}}</h1>
-{% endblock content %}
+<form action="{% url 'password' %}">
+	<div class="settings">
+		<span class="settings__title field-title">settings</span>
+		<div class="length range__slider" data-min="4" data-max="32">
+		<div class="length__title field-title" data-length='0'>length:</div>
+		<input name="length" type="range" min="4" max="24" onchange="rangevalue.value=value" />
+		<output id="rangevalue">12</output>
+		</div>
+		<div class="setting">
+            <input type="checkbox" name="uppercase">Использовать верхний регистр
+			<br>
+			<input type="checkbox" name="numbers"  > Использовать цифры
+			<br>
+			<input type="checkbox" name="special" > Использовать специальные символы
+		</div>
+	</div>
+
+	<button class="btn generate" id="generate">Generate Password</button>
+	</form>
+</div>
 </body>
-</html>
